@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jill Franchi Tutoring | 11+ Exam Specialist</title>
+<meta name="description" content="Jill Franchi Tutoring — 25 years' experience helping children succeed in the 11+ exam and gain places at top UK grammar and independent schools.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2a4a;
+    --navy-light: #24365c;
+    --gold: #c8952b;
+    --gold-light: #dcac4f;
+    --bg-light: #f7f5f0;
+    --white: #ffffff;
+    --text-dark: #23293a;
+    --text-muted: #5a6072;
+    --radius: 10px;
+    --shadow: 0 10px 30px rgba(26, 42, 74, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-dark);
+    background: var(--bg-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  a { text-decoration: none; color: inherit; }
+
+  ul { list-style: none; }
+
+  .container {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Fade-in animation */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Header */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+    transition: background 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease;
+    padding: 20px 0;
+  }
+  header.scrolled {
+    background: rgba(26, 42, 74, 0.97);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    padding: 12px 0;
+  }
+
+  .nav-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--white);
+    letter-spacing: 0.3px;
+  }
+  .logo span { color: var(--gold-light); }
+
+  .nav-links {
+    display: none;
+    align-items: center;
+    gap: 2rem;
+  }
+  .nav-links a {
+    color: var(--white);
+    font-weight: 500;
+    font-size: 0.95rem;
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.25s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--gold-light);
+  }
+  .nav-links a.active::after,
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 13px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    text-align: center;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(200, 149, 43, 0.35);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border-color: rgba(255,255,255,0.7);
+  }
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .nav-toggle {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 24px;
+    position: relative;
+    z-index: 1100;
+  }
+  .nav-toggle span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--white);
+    transition: all 0.3s ease;
+  }
+  .nav-toggle span:nth-child(1) { top: 0; }
+  .nav-toggle span:nth-child(2) { top: 11px; }
+  .nav-toggle span:nth-child(3) { top: 22px; }
+  .nav-toggle.open span:nth-child(1) { transform: rotate(45deg); top: 11px; }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg); top: 11px; }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(320px, 80%);
+    height: 100vh;
+    background: var(--navy);
+    z-index: 1050;
+    padding: 100px 32px 32px;
+    transition: right 0.35s ease;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+  }
+  .mobile-menu.open { right: 0; }
+  .mobile-menu a {
+    display: block;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .mobile-menu a:hover { color: var(--gold-light); }
+  .mobile-menu .btn { margin-top: 24px; width: 100%; }
+
+  .overlay-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1040;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .overlay-bg.open { opacity: 1; pointer-events: auto; }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    background-image: linear-gradient(rgba(15, 24, 46, 0.72), rgba(15, 24, 46, 0.78)), url('assets/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll;
+    padding: 120px 24px 80px;
+  }
+  .hero-inner {
+    max-width: 780px;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    color: var(--gold-light);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 6vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 22px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  }
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(255,255,255,0.92);
+    max-width: 620px;
+    margin: 0 auto 36px;
+  }
+  .hero-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  .hero-btns .btn { min-width: 180px; }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 40px;
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 14px;
+  }
+  .scroll-cue::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 4px;
+    height: 8px;
+    background: var(--gold-light);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    animation: scrollDown 1.8s infinite ease;
+  }
+  @keyframes scrollDown {
+    0% { opacity: 1; top: 6px; }
+    70% { opacity: 0; top: 18px; }
+    100% { opacity: 0; top: 6px; }
+  }
+
+  /* Section shared */
+  section {
+    padding: 88px 0;
+  }
+  .section-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 56px;
+  }
+  .eyebrow {
+    display: block;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+  .section-head p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  /* About */
+  .about {
+    background: var(--white);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .about-media {
+    position: relative;
+  }
+  .about-media img {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+  }
+  .about-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--navy);
+    color: var(--white);
+    padding: 18px 22px;
+    border-radius: var(--radius);
+    box-shadow: 0 12px 28px rgba(26,42,74,0.35);
+    text-align: center;
+  }
+  .about-badge strong {
+    display: block;
+    font-size: 1.8rem;
+    color: var(--gold-light);
+    font-weight: 800;
+    line-height: 1;
+  }
+  .about-badge span {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.8);
+  }
+  .about-text h2 {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: var(--navy);
+    font-weight: 800;
+    margin-bottom: 18px;
+  }
+  .about-text p {
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    font-size: 1.02rem;
+  }
+  .subjects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .subject-pill {
+    background: var(--bg-light);
+    border: 1px solid rgba(26,42,74,0.1);
+    color: var(--navy);
+    padding: 9px 18px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+
+  /* Services */
+  .services {
+    background: var(--bg-light);
+  }
+  .service-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px 26px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--gold);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(26,42,74,0.14);
+  }
+  .service-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(200,149,43,0.12);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+  }
+  .service-card h3 {
+    color: var(--navy);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .service-card p {
+    color: var(--text-muted);
+    font-size: 0.97rem;
+  }
+  .price-banner {
+    margin-top: 48px;
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    background-image: linear-gradient(120deg, rgba(200,149,43,0.15), transparent 60%);
+  }
+  .price-banner .amount {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--gold-light);
+  }
+  .price-banner .amount span {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+  }
+  .price-banner p {
+    color: rgba(255,255,255,0.85);
+    max-width: 480px;
+  }
+
+  /* Teaching strip */
+  .strip {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .strip img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+  }
+
+  /* Testimonials */
+  .testimonials {
+    background: var(--white);
+  }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .testi-card {
+    background: var(--bg-light);
+    border-radius: var(--radius);
+    padding: 30px 26px;
+    position: relative;
+  }
+  .stars {
+    color: var(--gold);
+    font-size: 1rem;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+  .testi-card p.quote {
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .testi-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .testi-author strong {
+    display: block;
+    color: var(--navy);
+    font-size: 0.95rem;
+  }
+  .testi-author span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .testi-note {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(200,149,43,0.15);
+    color: var(--gold);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 50px;
+  }
+
+  /* Contact */
+  .contact {
+    background: var(--navy);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .contact::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 340px;
+    height: 340px;
+    background: radial-gradient(circle, rgba(200,149,43,0.18), transparent 70%);
+  }
+  .contact .section-head h2 { color: var(--white); }
+  .contact .section-head p { color: rgba(255,255,255,0.75); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .info-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .info-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(200,149,43,0.18);
+    color: var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+  .info-item h4 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    color: var(--gold-light);
+  }
+  .info-item p, .info-item a {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.95rem;
+  }
+
+  .contact-form {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 32px;
+    backdrop-filter: blur(6px);
+  }
+  .form-group {
+    margin-bottom: 18px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,0.85);
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.07);
+    color: var(--white);
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: vertical;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.1);
+  }
+  .contact-form .btn-primary {
+    width: 100%;
+    border: none;
+  }
+  .form-note {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+  }
+
+  /* Footer */
+  footer {
+    background: #101b33;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 0.85rem;
+  }
+  footer span { color: var(--gold-light); }
+
+  /* Tablet+ */
+  @media (min-width: 768px) {
+    .about-grid { grid-template-columns: 0.9fr 1.1fr; }
+    .service-grid { grid-template-columns: repeat(2, 1fr); }
+    .testi-grid { grid-template-columns: repeat(3, 1fr); }
+    .strip { grid-template-columns: 1fr 1fr; }
+    .strip img { height: 300px; }
+    .contact-grid { grid-template-columns: 1fr 1.2fr; }
+  }
+
+  @media (min-width: 960px) {
+    .nav-links { display: flex; }
+    .nav-cta { display: inline-block; }
+    .nav-toggle { display: none; }
+    .service-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay-bg" id="overlay"></div>
+
+<header id="site-header">
+  <div class="container nav-wrap">
+    <a href="#hero" class="logo">Jill Franchi <span>Tutoring</span></a>
+    <nav class="nav-links" id="nav-links">
+      <a href="#hero" data-nav>Home</a>
+      <a href="#about" data-nav>About</a>
+      <a href="#services" data-nav>Services</a>
+      <a href="#testimonials" data-nav>Testimonials</a>
+      <a href="#contact" data-nav>Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-primary nav-cta">Book a Session</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#hero" data-nav>Home</a>
+  <a href="#about" data-nav>About</a>
+  <a href="#services" data-nav>Services</a>
+  <a href="#testimonials" data-nav>Testimonials</a>
+  <a href="#contact" data-nav>Contact</a>
+  <a href="#contact" class="btn btn-primary">Book a Session</a>
+</div>
+
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">11+ Exam Specialist &middot; 25 Years' Experience</span>
+    <h1>11+ Exam Success Starts Here</h1>
+    <p>With 25 years of experience, Jill Franchi has helped hundreds of children gain places at the UK's top grammar and independent schools.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-primary">Book a Session</a>
+      <a href="#about" class="btn btn-outline">About Jill</a>
+    </div>
+  </div>
+  <div class="scroll-cue"></div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-media fade-in">
+      <img src="assets/teaching.jpg" alt="Jill Franchi tutoring a student">
+      <div class="about-badge">
+        <strong>25+</strong>
+        <span>Years Experience</span>
+      </div>
+    </div>
+    <div class="about-text fade-in">
+      <span class="eyebrow">About Jill</span>
+      <h2>A patient, encouraging approach to 11+ success</h2>
+      <p>Jill Franchi (formerly known as Mrs Jarman in the classroom) has been tutoring the 11+ exam for over 25 years — including a decade teaching at grammar schools across Essex County Council. She is passionate about helping children build confidence and master the skills they need to excel.</p>
+      <p>Her approach is patient, encouraging, and tailored to each child's unique learning style — ensuring every pupil feels supported on their journey to exam day.</p>
+      <p class="about-note">Jill is married to renowned songwriter <strong>Tony Franchi</strong>.</p>
+      <div class="subjects">
+        <span class="subject-pill">English</span>
+        <span class="subject-pill">Maths</span>
+        <span class="subject-pill">Verbal Reasoning</span>
+        <span class="subject-pill">Non-Verbal Reasoning</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Services</span>
+      <h2>How Jill Can Help Your Child</h2>
+      <p>A structured, supportive programme covering every part of the 11+ exam journey.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card fade-in">
+        <div class="service-icon">&#128218;</div>
+        <h3>1:1 Tutoring</h3>
+        <p>Personalised sessions tailored to your child's needs.</p>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon">&#9999;&#65039;</div>
+        <h3>Mock Tests</h3>
+        <p>Practice papers under real exam conditions.</p>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon">&#9201;&#65039;</div>
+        <h3>Exam Technique</h3>
+        <p>Time management, question strategy, and confidence building.</p>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon">&#128172;</div>
+        <h3>Parent Consultations</h3>
+        <p>Regular updates and advice on school choices.</p>
+      </div>
+    </div>
+    <div class="price-banner fade-in">
+      <div class="amount">&pound;40<span> / hour</span></div>
+      <p>Simple, transparent pricing for 1:1 sessions — no hidden fees, no long-term contracts.</p>
+      <a href="#contact" class="btn btn-primary">Book a Session</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <img src="assets/teaching.jpg" alt="Jill Franchi teaching a lesson" class="fade-in">
+  <img src="assets/study.jpg" alt="A student studying for the 11+ exam" class="fade-in">
+</div>
+
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Testimonials</span>
+      <h2>What Parents Say</h2>
+      <p>Real stories from families Jill has supported through the 11+ journey.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fade-in">
+        <span class="testi-note">Coming Soon</span>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Testimonial coming soon."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <strong>Parent Name</strong>
+            <span>Coming soon</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fade-in">
+        <span class="testi-note">Coming Soon</span>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Testimonial coming soon."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <strong>Parent Name</strong>
+            <span>Coming soon</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fade-in">
+        <span class="testi-note">Coming Soon</span>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Testimonial coming soon."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <strong>Parent Name</strong>
+            <span>Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Get In Touch</span>
+      <h2>Book a Session With Jill</h2>
+      <p>Based in the UK. Get in touch to discuss your child's 11+ preparation.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info fade-in">
+        <div class="info-item">
+          <div class="info-icon">&#9993;&#65039;</div>
+          <div>
+            <h4>Email</h4>
+            <a href="mailto:jillmjarman@gmail.com">jillmjarman@gmail.com</a>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">&#128222;</div>
+          <div>
+            <h4>Phone</h4>
+            <p>07848 686 464</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">&#128205;</div>
+          <div>
+            <h4>Location</h4>
+            <p>Based in the UK &mdash; in-person &amp; online sessions available</p>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form fade-in" id="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell Jill about your child's needs..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+        <p class="form-note">Jill typically responds within 1&ndash;2 working days.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; <span id="year"></span> <span>Jill Franchi Tutoring</span>. All rights reserved.</p>
+</footer>
+
+<script>
+  // Sticky header background on scroll
+  const header = document.getElementById('site-header');
+  const onScroll = () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  };
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+
+  // Mobile menu toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('overlay');
+
+  function closeMenu() {
+    navToggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    overlay.classList.remove('open');
+  }
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    overlay.classList.toggle('open', isOpen);
+  });
+  overlay.addEventListener('click', closeMenu);
+  document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Active nav link highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('a[data-nav]');
+
+  const highlightNav = () => {
+    let current = sections[0].id;
+    const scrollPos = window.scrollY + 100;
+    sections.forEach(sec => {
+      if (scrollPos >= sec.offsetTop) current = sec.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  };
+  window.addEventListener('scroll', highlightNav);
+  highlightNav();
+
+  // Fade-in on scroll using IntersectionObserver
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Contact form (placeholder submit handling)
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = 'Message Sent ✓';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.disabled = false;
+      form.reset();
+    }, 2500);
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
