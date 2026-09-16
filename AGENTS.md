@@ -47,7 +47,7 @@ Single-page marketing website for Jill Franchi's 11+ exam tutoring business. Jil
 | About Jill | `#about` | teaching.jpg, 25+ years badge, bio, subject pills |
 | Services | `#services` | 4 cards: 1:1 Tutoring, Mock Tests, Exam Technique, Parent Consultations |
 | Testimonials | `#testimonials` | 3 placeholder cards — replace with real quotes |
-| Contact | `#contact` | jillmjarman@gmail.com, 07848 686 464, contact form |
+| Contact | `#contact` | jill@blackwatertutoring.co.uk, 07848 686 464, contact form |
 
 ## Known Gaps / TODOs
 
