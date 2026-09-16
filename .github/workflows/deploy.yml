@@ -1,0 +1,63 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  CLOUDFLARE_ACCOUNT_ID: a592565208c4d5ec9f0d49c7de7adbf0
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Determine target project
+        id: project
+        run: |
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            echo "project=blackwater-tutoring" >> $GITHUB_OUTPUT
+            echo "branch=main" >> $GITHUB_OUTPUT
+          else
+            echo "project=bt-dev" >> $GITHUB_OUTPUT
+            echo "branch=staging" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+          command: |
+            npx wrangler pages deploy . \
+              --project-name=${{ steps.project.outputs.project }} \
+              --branch=${{ steps.project.outputs.branch }}
+
+      - name: Verify deployment
+        run: |
+          PROJECT="${{ steps.project.outputs.project }}"
+          echo "Deployed to Cloudflare Pages project: $PROJECT"
+          echo "Production URL: https://$PROJECT.pages.dev"
+          echo ""
+          echo "To set up a custom domain:"
+          echo "  Cloudflare Dashboard → Pages → $PROJECT → Custom domains"
